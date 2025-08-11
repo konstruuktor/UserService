@@ -15,6 +15,7 @@ public class UserDAO {
             session.persist(user);
             tx.commit();
             log.info("Пользователь создан: {}", user);
+
         }
     }
 
