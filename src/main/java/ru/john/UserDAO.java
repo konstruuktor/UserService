@@ -11,9 +11,9 @@ public class UserDAO {
 
     public void save(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.persist(user);
-            tx.commit();
+            transaction.commit();
             log.info("Пользователь создан: {}", user);
 
         }
@@ -33,18 +33,18 @@ public class UserDAO {
 
     public void update(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.merge(user);
-            tx.commit();
+            transaction.commit();
             log.info("Пользователь обновлён: {}", user);
         }
     }
 
     public void delete(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.remove(user);
-            tx.commit();
+            transaction.commit();
             log.info("Пользователь удалён: {}", user);
         }
     }
