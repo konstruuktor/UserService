@@ -16,5 +16,6 @@
         <property name="hibernate.show_sql">true</property>
 
         <mapping class="ru.john.User"/>
+
     </session-factory>
 </hibernate-configuration>
