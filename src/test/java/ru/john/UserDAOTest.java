@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserDAOTest {
 
     @Container
+
     private static final PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>("postgres:17-alpine")
                     .withDatabaseName("userservicedb2")
