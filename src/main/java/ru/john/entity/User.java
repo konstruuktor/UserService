@@ -1,4 +1,4 @@
-package ru.john;
+package ru.john.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
