@@ -3,7 +3,9 @@ package ru.john.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.john.dto.UserDto;
+import ru.john.dto.UserEvent;
 import ru.john.entity.User;
+import ru.john.kafka.UserEventProducer;
 import ru.john.repository.UserRepository;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+    private final UserEventProducer eventProducer;
 
     public UserDto create(UserDto dto) {
         User user = User.builder()
@@ -20,8 +23,8 @@ public class UserService {
                 .age(dto.getAge())
                 .build();
         repository.save(user);
-        dto.setId(user.getId());
-        return dto;
+        eventProducer.send(new UserEvent("CREATE", user.getEmail()));
+        return toDto(user);
     }
 
     public UserDto getById(Long id) {
@@ -47,7 +50,10 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        repository.findById(id).ifPresent(user -> {
+            repository.delete(user);
+            eventProducer.send(new UserEvent("DELETE", user.getEmail()));
+        });
     }
 
     private UserDto toDto(User user) {

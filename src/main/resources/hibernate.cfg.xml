@@ -15,7 +15,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
 
-        <mapping class="ru.john.User"/>
+        <mapping class="ru.john.entity.User"/>
 
     </session-factory>
 </hibernate-configuration>
