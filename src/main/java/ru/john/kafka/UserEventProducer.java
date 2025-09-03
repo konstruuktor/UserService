@@ -9,6 +9,7 @@ import ru.john.dto.UserEvent;
 public class UserEventProducer {
     private final KafkaTemplate<String, UserEvent> kafkaTemplate;
 
+
     public void send (UserEvent userEvent){
         kafkaTemplate.send("user-events", userEvent);
     }
